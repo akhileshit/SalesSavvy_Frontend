@@ -48,35 +48,37 @@ export default function Login() {
     }
 
   return (
-    <div className="page-container">
-        <div className="form-container">
-            {resetMessage && <p className='reset-message'>{resetMessage}</p>}
-            <h1 className="form-title">Login</h1>
-            {error && <p className="error-message">{error}</p>}
-            <form onSubmit={handleSignIn} className="form-content">
-                <div className="form-group">
-                    <label htmlFor="username" className="form-label">Username</label>
-                    <input type="text" className="form-input" id='username'
-                        placeholder='Enter your username'
-                        required
-                        value={username}
-                        onChange={(e) => setUsername(e.target.value)}
-                    />
+    <div className="page-layout">
+        <div className="page-container">
+            <div className="form-container">
+                {resetMessage && <p className='reset-message'>{resetMessage}</p>}  {/**Me */}
+                <h1 className="form-title">Login</h1>
+                {error && <p className="error-message">{error}</p>}
+                <form onSubmit={handleSignIn} className="form-content">
+                    <div className="form-group">
+                        <label htmlFor="username" className="form-label">Username</label>
+                        <input type="text" className="form-input" id='username'
+                            placeholder='Enter your username'
+                            required
+                            value={username}
+                            onChange={(e) => setUsername(e.target.value)}
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="password" className="form-label">Password</label>
+                        <input type="password" className="form-input" id="password"
+                            placeholder='Enter your password'
+                            required
+                            value={password} 
+                            onChange={(e) => setPassword(e.target.value)}
+                        />
+                    </div>
+                    <button type='submit' className="form-button">Sign In</button>
+                </form>
+                <div className="form-footer">
+                    <a href="/register" className='form-link'>New User? Sign up here</a>
+                    <a href="/fetch-email" className='form-link'>Forgot Password? Click here</a>
                 </div>
-                <div className="form-group">
-                    <label htmlFor="password" className="form-label">Password</label>
-                    <input type="password" className="form-input" id="password"
-                        placeholder='Enter your password'
-                        required
-                        value={password} 
-                        onChange={(e) => setPassword(e.target.value)}
-                    />
-                </div>
-                <button type='submit' className="form-button">Sign In</button>
-            </form>
-            <div className="form-footer">
-                <a href="/register" className='form-link'>New User? Sign up here</a>
-                <a href="/fetch-email" className='form-link'>Forgot Password? Click here</a>
             </div>
         </div>
     </div>

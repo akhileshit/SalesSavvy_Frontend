@@ -6,125 +6,100 @@ import Footer from '../components/Footer'
 import { useNavigate } from 'react-router-dom'
 
 export default function Dashboard() {
-  const [error, setError] = useState(null)
-  const [username, setUsername] = useState(null);
   const [products, setProducts] = useState([])
-  let navigate = useNavigate()
-  // const [category, setCategory] = useState('Shirts')
   const [cartCount, setCartCount] = useState(0)
+  const [username, setUsername] = useState('')
+  const [cartError, setCartError] = useState(false) // State for cart fetch error
+  const [isCartLoading, setIsCartLoading] = useState(true) // State for cart loading
 
-
-  // Use this if u want anything to load by default when page reloads [and also to avoid infinite/"multiple" re-rendering!!!]  i think
-  useEffect(() => {
-    fetchProducts()    //stops calling this when username gets a value!!  i think
-  }, [username])
 
 
   useEffect(() => {
-    getCartCount()
-  }, [cartCount])
+    fetchProducts();
+    if (username) {
+      fetchCartCount(); // Fetch cart count only if username is available
+    }
+  }, [username]) // Re-run cart count fetch & products fetch if username changes
 
+  const fetchProducts = async (category = '') => {
+    try {
+      const response = await fetch(
+        `http://localhost:9000/api/products${category ? `?category=${category}` : `?category=Shirts`}`,
+        { credentials: 'include' } // Include authToken as a cookie
+      )
 
+      const data = await response.json();
+      if (data) {
+        setUsername(data.user?.name || 'Guest') // Extract username
+        setProducts(data.products || [])
+      } else {
+        setProducts([])
+      }
 
-  //CATEGORY CHANGE FUNCTION
-  const onCategoryClick = (category) => {
-    fetchProducts(category)
+    } catch (error) {
+      console.error('Error fetching products:', error)
+      setProducts([])
+    } 
   }
 
-
-  //PRODUCTS FETCH FUNCTION
-  const fetchProducts = async (category = 'Shirts') => {
-    setError(null)
-
+  const fetchCartCount = async () => {
+    setIsCartLoading(true)  // Set loading state
     try {
-      const response = await fetch(`http://localhost:9000/api/products?category=${category}`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        credentials: 'include', // Ensures cookies are sent and received
-
+      const response = await fetch('http://localhost:9000/api/cart/total-cout', {
+        credentials: "include", // Include authToken as a cookie
       })
-
-      const data = await response.json()
-
-      if (response.ok) {
-        console.log("Response is good")
-        setUsername(data.user.name)
-        console.log(username)
-        setProducts(data.products)
-      } else {
-        throw new Error(data.error || 'Products retrieval failed')
-      }
-
-    } catch (err) {
-      console.log("Error fetching products.")
-      setError(err)
-      console.log(err.message)
-      if (err.message === 'Failed to fetch') {
-        navigate('/')
-      }
+      const count = await response.json();
+      setCartCount(count);
+      setCartError(false); // Reset error state if successful
+    } catch (error) {
+      console.error('Error fetching cart count:', error);
+      setCartError(true); // Set error state
+    } finally {
+      setIsCartLoading(false); // Remove loading state
     }
   }
 
-
-  //TOTAL CART ITEMS FUNCTION
-  const getCartCount = async () => {
-    const response = await fetch('http://localhost:9000/api/cart/total-count', {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      credentials: 'include',
-    })
-
-    const countData = await response.json()
-    setCartCount(parseInt(countData))
+  const handleCategoryClick = (category) => {
+    fetchProducts(category);
   }
 
-  //ADD TO CART FUNCTION
-  const onAddToCart = async (productId) => {
+  const handleAddToCart = async (productId) => {
+    if (!username) {
+      console.error('Username is required to add items to the cart');
+      return;
+    }
     try {
       const response = await fetch('http://localhost:9000/api/cart/add', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
         credentials: 'include',
-        body: JSON.stringify({ username, productId })
+        method: 'POST',
+        body: JSON.stringify({ username, productId }), // Include username and productId in the request
+        headers: {'Content-Type': 'application/json' }, 
       })
 
-      // const data = await response.json()
-
-      if (response.status == 201) {
-        getCartCount()
-
+      if (response.ok) {
+        fetchCartCount(); // Update cart count
       } else {
-        throw new Error('Add to cart failed')
+        console.error('FAiled to add product ot cart');
       }
 
-    } catch (err) {
-      setError(err.message)
+    } catch (error) {
+      console.error('Error adding product to cart:', error)
     }
   }
-
-  
 
 
   return (
     <div className="customer-homepage">
-      <Header cartCount={cartCount} username={username} />
-
+      <Header
+        cartCount={isCartLoading ? '...' : cartError ? 'Error' : cartCount}
+        username={username}
+      />
       <nav className="navigation">
-        <CategoryNavigation onCategoryClick={onCategoryClick} />
-        {error && <p className="error-message">Error: {error}</p>}
+        <CategoryNavigation onCategoryClick={handleCategoryClick} />
       </nav>
-
-
       <main className="main-content">
-        <ProductList products={products} onAddToCart={(productId) => onAddToCart(productId)} />
+        <ProductList products={products} onAddToCart={handleAddToCart} />
       </main>
-
       <Footer />
     </div>
   )

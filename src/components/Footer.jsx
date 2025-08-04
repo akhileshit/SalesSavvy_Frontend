@@ -5,8 +5,8 @@ export default function Footer() {
     <footer className="footer">
         <div className="footer-content">
             <div className="footer-left">
-                <h3>SalesSavvy</h3>
-                <p>One stop solution for all your needs</p>
+                <h3 className='footer-title'>SalesSavvy</h3>
+                <p className='footer-tagline'>Our one stop solution for all your needs</p>
             </div>
             <div className="footer-links">
                 <a href="#">About us</a>

@@ -1,16 +1,14 @@
 import React, { useState } from 'react'
 import User_avatar from '../assets/user_avatar.png'
+import { useNavigate } from 'react-router-dom';
 
 export default function ProfileDropDown({ username }) {
     const [isOpen, setIsOpen] = useState(false);
-    const [error, setError] = useState(null)
+    const navigate = useNavigate(); // Initialize useNavigate hook
 
     const toggleDropdown = () => setIsOpen(!isOpen)
 
     const handleLogout = async (e) => {
-        e.preventDefault()
-        setError(null)
-
         try {
             const response = await fetch('http://localhost:9000/api/auth/logout', {
                 method: 'POST',
@@ -19,35 +17,36 @@ export default function ProfileDropDown({ username }) {
                 },
                 credentials: 'include'
             })
-    
-            const data = await response.json()
-    
+        
             if (response.ok) {
-                console.log(data.message)
-                console.log('User logged out')  
-                window.location.href = '/'
+                console.log('User successfully logged out')
+                navigate('/') // Redirect to login page
             } else {
-                throw new Error(data.error || 'Something went wrong')
+                console.error('Failed to log out');
             }
             
-        } catch (err) {
-            setError(err.message)
+        } catch (error) {
+            console.error('Error during logou:', error);
         }
+    }
+
+    const handleOrdersClick = () => {
+        navigate('/userorderspage');
     }
 
 
 
   return (
     <div className="profile-dropdown">
-        <button onClick={toggleDropdown}>
-            <img src={User_avatar} alt="User Avatar" className='avatar'/>   {/* Add image */}
-            <span className="username">{username || 'Guest'}</span>
+        <button className='profile-button' onClick={toggleDropdown}>
+            <img src={User_avatar} alt="User Avatar" className='user-avatar' onError={(e) => {e.target.src= 'fallback-logo.png'}}/>   {/* Add image */}
+            <span className="username">{username || 'Guest'}</span> {/**Display username */}
         </button>
         {isOpen && (
             <div className="dropdown-menu">
                 <a href="#">Profile</a>
-                <a href="/userorderspage">Orders</a>
-                <button onClick={handleLogout}>Logout</button>
+                <a onClick={handleOrdersClick}>Orders</a>
+                <button className='profile-button' onClick={handleLogout}>Logout</button>
             </div>
         )}
     </div>
