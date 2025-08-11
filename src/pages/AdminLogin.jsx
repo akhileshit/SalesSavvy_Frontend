@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
-import {useLocation, useNavigate} from 'react-router-dom'
-import '../assets/styles.css'
+import { useLocation, useNavigate } from 'react-router-dom';
 
-export default function Login() {
+export default function AdminLogin() {
+
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [error, setError] = useState(null)
@@ -28,16 +28,16 @@ export default function Login() {
             const data = await response.json();
 
             if (response.ok) {
-                console.log('User logged in successfully: ', data)
+                console.log('logged in successfully: ', data)
 
                 //Redirect user based on their role
                 if (data.role == 'CUSTOMER') {
-                    navigate('/customerhome');
+                    navigate('/')
                 } else if (data.role == 'ADMIN') {
-                    navigate('/admin')
-                } else {
-                    throw new Error('Invalid user role')
-                }
+                    navigate('/adminhome')
+                }//  else {
+                //     throw new Error('Invalid user role')
+                // }
             } else {
                 throw new Error(data.error || 'Login failed')
             }
@@ -48,16 +48,16 @@ export default function Login() {
     }
 
   return (
-    <div className="page-container">
+    <div className="page-container admin-login">
         <div className="form-container">
             {resetMessage && <p className='reset-message'>{resetMessage}</p>}
-            <h1 className="form-title">Login</h1>
+            <h1 className="form-title">Admin Login</h1>
             {error && <p className="error-message">{error}</p>}
             <form onSubmit={handleSignIn} className="form-content">
                 <div className="form-group">
-                    <label htmlFor="username" className="form-label">Username</label>
+                    <label htmlFor="username" className="form-label">Admin Username</label>
                     <input type="text" className="form-input" id='username'
-                        placeholder='Enter your username'
+                        placeholder='Enter your admin username'
                         required
                         value={username}
                         onChange={(e) => setUsername(e.target.value)}
@@ -75,9 +75,8 @@ export default function Login() {
                 <button type='submit' className="form-button">Sign In</button>
             </form>
             <div className="form-footer">
-                <a href="/register" className='form-link'>New User? Sign up here</a>
                 <a href="/fetch-email" className='form-link'>Forgot Password? Click here</a>
-                <a href="/admin" className='form-link'>For Admin? Login here</a>
+                <a href="/" className='form-link'>For Customer? Login here</a>
             </div>
         </div>
     </div>
