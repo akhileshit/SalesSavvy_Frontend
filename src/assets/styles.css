@@ -543,3 +543,85 @@ main {
     background-color: #333;
     color: white;
 }
+
+
+
+
+.management-section {
+    display: flex;
+    flex-direction: column;
+    width: 80vw;
+    /* align-items: flex-start; */
+    /* margin-left: 100px; */
+}
+
+.admin-cards {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.admin-card {
+    display: flex;
+    flex-direction: column;
+    width: 350px;
+    height: 150px;
+    justify-content: center;
+    align-content: center;
+    border: 5px solid #00ABE4;
+    border-radius: 5px;
+    background-color: white;
+    padding: 20px;
+}
+
+
+
+.admin-product-mgmt-page {
+    position: fixed;
+    margin-left: 900px;
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    align-items: center;
+    width: 31vw;
+    height: 100vh;
+    background-color: rgb(51, 51, 51, 0.3);
+    padding: 5px;
+    animation: anime1 0.5s normal;
+    overflow-y: auto;
+}
+
+.close-button {
+    width: 100px;
+    padding: 10px;
+    align-self: flex-end;
+    margin-right: 15px;
+    border-radius: 5px;
+    border: none;
+    background-color: red;
+    color: white;
+    margin-top: 10px;
+}
+
+@keyframes anime1 {
+    0% {
+        margin-left: 1300px;
+    }
+    100% {
+        margin-left: 900px;
+    }
+}
+
+.section-header {
+    background-color: #00ABE4;
+    height: 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.section-header span {
+    background-color: white;
+    width: 80vw;
+    padding-top: 3px;
+    padding-bottom: 3px;
+}
