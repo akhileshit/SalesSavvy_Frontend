@@ -867,3 +867,278 @@ span.username {
     font-size: 1rem;
     text-align: center;
 }
+
+
+
+
+/* admin */
+/* Fixed AdminDashboard.css for 2 cards per row  */
+
+.admin-dashboard {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    min-width: 100vw;
+    background-color: #f9fafb;
+    font-family: Arial, sans-serif;
+}
+
+.dashboard-header {
+    /* background-color: #0078d4; */
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+}
+
+.dashboard-header .logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.dashboard-header .user-info {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.dashboard-header .username {
+    font-size: 1rem;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.dashboard-header .dropdown-button {
+    background-color: transparent;
+    border: 1px solid white;
+    border-radius: 5px;
+    padding: 5px 10px;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+.dashboard-header .dropdown-button:hover {
+    background-color: white;
+    color: #0078d4;
+}
+
+.dashboard-content {
+    flex: 1;
+    padding: 20px;
+    justify-content: space-around;
+    align-items: center;
+    margin-left: 25px;
+}
+
+.cards-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);  /* Ensure exactly 2 cards per row */
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+    grid-column: 2;
+}
+
+.card {
+    background-color: #f6f3f3;
+    border-radius: 20px;
+    box-shadow: 0 5px 6px rgba(4, 1, 1, 0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
+    cursor: pointer;
+    width: 650px;
+    border: .5px solid #2a0303;
+}
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+}
+
+.card-content {
+    padding: 15px;
+}
+
+.card-title {
+    font-size: 1.2rem;
+    font-weight: bolder;
+    color: #da5151;
+    text-align: center;
+    text-decoration: auto;
+    font-family: sans-serif;
+    background: #8ed5ef;
+    border-radius: 50px;
+    width: 200px;
+    margin: 20px auto;
+}
+
+.card-description {
+    font-size: 1rem;
+    color: #000000;
+    margin-top: 5px;
+    text-align: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.teams {          /* come back............................. */
+    font-size: 0.9rem;
+    color: #24045f;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-style: oblique;
+}
+.card-team {
+    font-size: 0.9rem;
+    color: #24025f;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-style: oblique;
+}
+
+.card-footer {              /* come back............................. */
+    padding: 10px;
+    border-top: 1px solid #eee;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.launch-button {    /* come back............................. */
+    background-color: #0078d4;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+.launch-button:hover {       /* come back............................. */
+    background-color: #005a9e;
+}
+
+
+
+/* Modal overlay  */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 800px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    animation: fadeIn 0.3s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+}
+
+.modal-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.modal-form input, .modal-form textarea {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+.modal-form textarea {
+    resize: vertical;
+    height: 80px;
+}
+
+button {
+    padding: 10x 15px;
+    background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+button:hover {
+    background: #0056b3;
+}
+button:last-child {
+    background: #6c757d;
+}
+button:last-child:hover {
+    background: #5a6268;
+}
+
+.product-details {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.product-details img {
+    width: 200px;
+    height: 200px;
+    object-fit: scale-down;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+}
+
+.product-details div {
+    flex: 1;
+}
+
+.product-details p {
+    margin: 5px 0
+}
+
+/* Animation  */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.modal-form-item {    
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.business-response-item {     /* come back............................. */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.full-products {        /* come back............................. */
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 25px;
+}
+
+.product-details-info {
+    display: flex;
+    flex-direction: column;
+}

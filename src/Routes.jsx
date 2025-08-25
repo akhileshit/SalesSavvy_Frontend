@@ -8,6 +8,8 @@ import ValidateOtp from './pages/ValidateOtp'
 import ResetPassword from './pages/ResetPassword'
 import Cart from './pages/Cart'
 import Orders from './pages/Orders'
+import AdminLogin from './pages/AdminLogin'
+import AdminDashboard from './pages/AdminDashboard'
 
 export default function AppRoutes() {
   return (
@@ -20,6 +22,8 @@ export default function AppRoutes() {
         <Route path="/reset-password" element={<ResetPassword />} />
         <Route path='/usercartpage' element={<Cart/>}/>
         <Route path='/userorderspage' element={<Orders/>} />
+        <Route path='/admin' element={<AdminLogin/>} />
+        <Route path='/admindashboard' element={<AdminDashboard/>} />
         {/* Add more routes here as the app grows */}
     </Routes>
   )
