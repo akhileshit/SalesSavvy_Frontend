@@ -34,7 +34,7 @@ export default function Login() {
                 if (data.role == 'CUSTOMER') {
                     navigate('/customerhome');
                 } else if (data.role == 'ADMIN') {
-                    navigate('/adminhome')
+                    navigate('/admindashboard')
                 } else {
                     throw new Error('Invalid user role')
                 }

@@ -93,12 +93,13 @@ export default function AdminDashboard() {
                 }
             );
             console.log("response", response);
+            const data = await response.json()
             // Handle response logic
             if (response.ok) {
-                setResponse({ message: "Delete Success" });
+                setResponse({ message: data.message });
             } else {
-                const errorMessage = await response.text();
-                setResponse({ message: `Error: ${errorMessage}` });
+                const errorMessage = data.error;
+                setResponse({ message: errorMessage });
             }
         } catch (error) {
             console.error("Error deleting product:", error);
@@ -118,16 +119,16 @@ export default function AdminDashboard() {
             if (response.ok) {
                 const data = await response.json();
                 setResponse({ user: data });
-                setModalType("response");
+                setModalType("viewUser"); 
             } else {
                 const errorMessage = await response.text();
                 setResponse({ message: `Error: ${errorMessage}` });
-                setModalType("response");
+                setModalType("viewUser");
             }
         } catch (error) {
             console.error("Error fetching user details:", error);
             setResponse({ message: "Error: Something went wrong" });
-            setModalType("response");
+            setModalType("viewUser");
         }
     };
 
@@ -154,12 +155,12 @@ export default function AdminDashboard() {
                 } else {
                     const error = await response.text();
                     setResponse({ message: `Error: ${error}` });
-                    setModalType("response");
+                    setModalType("modifyUser");
                 }
             } catch (error) {
                 console.error("Error fetching user details:", error);
                 setResponse({ message: "Error: Something went wrong" });
-                setModalType("response");
+                setModalType("modifyUser");
             }
         } else {
             // Update user details
@@ -179,16 +180,16 @@ export default function AdminDashboard() {
                 if (response.ok) {
                     const updatedUser = await response.json();
                     setResponse({ user: updatedUser });
-                    setModalType("response");
+                    setModalType("modifyUser");
                 } else {
                     const error = await response.text();
                     setResponse({ message: `Error: ${error}` });
-                    setModalType("response");
+                    setModalType("modifyUser");
                 }
             } catch (error) {
                 console.error("Error updating user details:", error);
                 setResponse({ message: "Error: Something went wrong" });
-                setModalType("response");
+                setModalType("modifyUser");
             }
         }
     };
