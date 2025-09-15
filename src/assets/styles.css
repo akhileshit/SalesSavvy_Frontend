@@ -1142,3 +1142,8 @@ button:last-child:hover {
     display: flex;
     flex-direction: column;
 }
+
+.delete-details {
+    display: flex;
+    flex-direction: column;
+}

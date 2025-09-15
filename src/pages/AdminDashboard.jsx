@@ -73,7 +73,7 @@ export default function AdminDashboard() {
             })
             const data = await response.json();
             setResponse({ product: data, imageUrl: productData.imageUrl })
-            setModalType("response");
+            setModalType("addProduct");
         } catch (error) {
             console.error("Error adding product:", error);
         }
@@ -116,13 +116,13 @@ export default function AdminDashboard() {
                 },
                 body: JSON.stringify({ userId }), // Send userId in request body
             });
+            const data = await response.json();
             if (response.ok) {
-                const data = await response.json();
                 setResponse({ user: data });
                 setModalType("viewUser"); 
             } else {
-                const errorMessage = await response.text();
-                setResponse({ message: `Error: ${errorMessage}` });
+                const errorMessage = await data.error;
+                setResponse({ message: errorMessage });
                 setModalType("viewUser");
             }
         } catch (error) {

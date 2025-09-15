@@ -199,27 +199,34 @@ export default function CustomModal({ modalType, onClose, onSubmit, response }) 
                 }
 
                 {/* Delete Product Form  */}
-                {modalType === "deleteProduct" &&
-                    (!response ? (
-                        <>
-                            <h2>Delete Product</h2>
-                            <form>
-                                <input type="number"
-                                    placeholder='Enter Product ID'
-                                    value={inputValue}
-                                    onChange={handleGeneralInputChange}
-                                />
-                            </form>
-                            <button onClick={handleSubmit}>Delete</button>
-                            <button onClick={onClose}>Cancel</button>
-                        </>
-                    ) : (
-                        <div>
-                            <h2>{response.message}</h2>
-                            <button onClick={onClose}>Close</button>
-                        </div>
-                    ))
-                }
+                {modalType === "deleteProduct" && (
+                    <>
+                        <form className="modal-form">
+                            {!response ? (
+                                <>
+                                    <h2>Delete Product</h2>
+                                    <form>
+                                        <input type="number"
+                                            placeholder='Enter Product ID'
+                                            value={inputValue}
+                                            onChange={handleGeneralInputChange}
+                                        />
+                                    </form>
+                                    <button onClick={handleSubmit}>Delete</button>
+                                    <button onClick={onClose}>Cancel</button>
+                                </>
+                            ) : (
+                                <>
+                                    <div className='delete-details'>
+                                        <h2>{response.message}</h2>
+                                        <button onClick={onClose}>Close</button>
+                                    </div>
+                                </>
+                            )}
+                        </form>
+                    </>
+                )}
+
 
                 {/* View User Details Form  */}
                 {modalType === "viewUser" && (
